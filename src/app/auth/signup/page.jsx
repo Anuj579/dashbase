@@ -1,6 +1,6 @@
 "use client"
 
-import React, { useState } from 'react'
+import React, { useEffect, useState } from 'react'
 import { Button } from "@/components/ui/button";
 import { Eye, EyeOff, Lock, Mail, User } from "lucide-react";
 import { Card, CardContent, CardDescription, CardFooter, CardHeader, CardTitle } from "@/components/ui/card"
@@ -21,7 +21,7 @@ function SignupPage() {
         password: "",
     });
     const [errors, setErrors] = useState({});
-    const { signUp } = useUser()
+    const { signUp, user } = useUser()
 
     const handleChange = (e) => {
         const { name, value } = e.target;
@@ -48,6 +48,12 @@ function SignupPage() {
             console.log('ERROR IN SIGNUP:', error);
         }
     };
+
+    useEffect(() => {
+        if (user !== null) {
+            router.push('/dashboard')
+        }
+    }, [user])
 
     return (
         <div className="flex items-center justify-center mx-4 min-h-screen">

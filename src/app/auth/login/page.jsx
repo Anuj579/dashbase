@@ -1,6 +1,6 @@
 "use client"
 
-import React, { useState } from 'react'
+import React, { useEffect, useState } from 'react'
 import { Button } from "@/components/ui/button";
 import { Eye, EyeOff, Loader2, Lock, Mail } from "lucide-react";
 import { Card, CardContent, CardDescription, CardFooter, CardHeader, CardTitle } from "@/components/ui/card"
@@ -20,7 +20,7 @@ function LoginPage() {
         password: "",
     });
     const [errors, setErrors] = useState({})
-    const { login } = useUser()
+    const { login, user } = useUser()
 
     const handleChange = (e) => {
         const { name, value } = e.target;
@@ -47,6 +47,12 @@ function LoginPage() {
             console.log("FAILED TO LOGIN:", error);
         }
     }
+
+    useEffect(() => {
+        if (user !== null) {
+            router.push('/dashboard')
+        }
+    }, [user])
 
     return (
         <div className="flex items-center justify-center mx-4 min-h-screen">

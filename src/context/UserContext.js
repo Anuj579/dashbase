@@ -7,6 +7,7 @@ const UserContext = createContext();
 export const UserProvider = ({ children }) => {
     const [user, setUser] = useState(null);
     const [loading, setLoading] = useState(true)
+    const [sidebarOpen, setSidebarOpen] = useState(false)
 
     useEffect(() => {
         const storedUser = JSON.parse(localStorage.getItem('loggedInUser'));
@@ -89,7 +90,7 @@ export const UserProvider = ({ children }) => {
         }
     }
     return (
-        <UserContext.Provider value={{ signUp, login, logout, user, loading, deleteAccount }}>
+        <UserContext.Provider value={{ signUp, login, logout, user, loading, deleteAccount, sidebarOpen, setSidebarOpen }}>
             {children}
         </UserContext.Provider>
     );
