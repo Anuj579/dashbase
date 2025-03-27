@@ -10,7 +10,7 @@ A responsive Admin Dashboard built with **Next.js**, **React**, and **Tailwind C
 - ✅ Responsive UI
 - ✅ Dark Mode with ShadCN
 
-Live demo: [https://your-deployed-site-url.com](https://your-deployed-site-url.com)
+Live demo: [[https://dashbase-drab.vercel.app/](https://dashbase-drab.vercel.app/)]
 
 ---
 
