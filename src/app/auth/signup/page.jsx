@@ -2,16 +2,52 @@
 
 import React, { useState } from 'react'
 import { Button } from "@/components/ui/button";
-import { Eye, EyeOff, Loader2, Lock, Mail, User } from "lucide-react";
+import { Eye, EyeOff, Lock, Mail, User } from "lucide-react";
 import { Card, CardContent, CardDescription, CardFooter, CardHeader, CardTitle } from "@/components/ui/card"
 import { Input } from "@/components/ui/input";
 import Link from 'next/link';
 import { Label } from '@/components/ui/label';
+import { validateForm } from '../validateForm';
+import { useUser } from '@/context/UserContext';
+import toast, { Toaster } from 'react-hot-toast';
+import { useRouter } from 'next/navigation';
 
 function SignupPage() {
-    const [inputType, setInputType] = useState('password')
+    const [inputType, setInputType] = useState('password');
     const toggleInputType = () => setInputType(prev => (prev === 'password' ? 'text' : 'password'));
-    const [loading, setLoading] = useState(false)
+    const [formData, setFormData] = useState({
+        name: "",
+        email: "",
+        password: "",
+    });
+    const [errors, setErrors] = useState({});
+    const { signUp } = useUser()
+
+    const handleChange = (e) => {
+        const { name, value } = e.target;
+        setFormData((prev) => ({ ...prev, [name]: value }));
+        setErrors((prevErrors) => ({ ...prevErrors, [name]: "" }));
+    };
+
+    const router = useRouter();
+    const handleSignup = (e) => {
+        e.preventDefault();
+        const validationErrors = validateForm(formData, true);
+        setErrors(validationErrors);
+        if (Object.keys(validationErrors).length > 0) return;
+
+        try {
+            const data = signUp(formData)
+            if (!data.success) {
+                toast.error(data.error);
+            } else {
+                toast.success("Signed up successfully");
+                router.push('/auth/login');
+            }
+        } catch (error) {
+            console.log('ERROR IN SIGNUP:', error);
+        }
+    };
 
     return (
         <div className="flex items-center justify-center mx-4 min-h-screen">
@@ -23,7 +59,7 @@ function SignupPage() {
                     </CardDescription>
                 </CardHeader>
                 <CardContent>
-                    <form className="flex flex-col gap-4">
+                    <form onSubmit={handleSignup} className="flex flex-col gap-4">
                         <div className="space-y-2">
                             <Label htmlFor="name">Name</Label>
                             <div className="relative">
@@ -32,13 +68,14 @@ function SignupPage() {
                                     id="name"
                                     name="name"
                                     type="text"
+                                    value={formData.name}
+                                    onChange={handleChange}
                                     placeholder="Enter your name"
                                     autoComplete="username"
-                                    className={`pl-10 `}
-                                    disabled={loading}
-                                    required
+                                    className={`pl-10  ${errors.name && 'border-destructive focus-visible:ring-red-800'}`}
                                 />
                             </div>
+                            {errors.name && <p className="text-sm text-destructive">{errors.name}</p>}
                         </div>
                         <div className="space-y-2">
                             <Label htmlFor="email">Email</Label>
@@ -48,13 +85,14 @@ function SignupPage() {
                                     id="email"
                                     name="email"
                                     type="email"
+                                    value={formData.email}
+                                    onChange={handleChange}
                                     placeholder="Enter your email"
                                     autoComplete="email"
-                                    className={`pl-10 `}
-                                    disabled={loading}
-                                    required
+                                    className={`pl-10  ${errors.email && 'border-destructive focus-visible:ring-red-800'}`}
                                 />
                             </div>
+                            {errors.email && <p className="text-sm text-destructive">{errors.email}</p>}
                         </div>
                         <div className="space-y-2">
                             <Label htmlFor="password">Password</Label>
@@ -64,20 +102,19 @@ function SignupPage() {
                                     id="password"
                                     name="password"
                                     type={inputType}
+                                    value={formData.password}
+                                    onChange={handleChange}
                                     placeholder="Enter your password"
                                     autoComplete="new-password"
-                                    className={`pl-10`}
-                                    disabled={loading}
-                                    required
+                                    className={`pl-10  ${errors.password && 'border-destructive focus-visible:ring-red-800'}`}
                                 />
                                 <button className='absolute right-3 top-0 h-full' type='button' onClick={toggleInputType} aria-label={inputType === 'password' ? 'Show password' : 'Hide password'} title={inputType === 'password' ? 'Show password' : 'Hide password'}>
                                     {inputType === 'password' ? <Eye className="h-4 w-4 text-gray-500 dark:text-gray-400" /> : <EyeOff className="h-4 w-4 text-gray-500 dark:text-gray-400" />}
                                 </button>
                             </div>
+                            {errors.password && <p className="text-sm text-destructive">{errors.password}</p>}
                         </div>
-                        <Button className='w-full' disabled={loading}>
-                            {loading ? <span className='flex items-center gap-1'><Loader2 className='animate-spin h-5 w-5' />Sign Up</span> : "Sign Up"}
-                        </Button>
+                        <Button className='w-full'>Sign Up</Button>
                     </form>
                 </CardContent>
                 <CardFooter className='flex flex-col space-y-4'>
@@ -97,6 +134,7 @@ function SignupPage() {
                     </p>
                 </CardFooter>
             </Card>
+            <Toaster />
         </div>
     )
 }
