@@ -1,36 +1,69 @@
-This is a [Next.js](https://nextjs.org) project bootstrapped with [`create-next-app`](https://github.com/vercel/next.js/tree/canary/packages/create-next-app).
+# DashBase — Admin Dashboard
 
-## Getting Started
+A responsive Admin Dashboard built with **Next.js**, **React**, and **Tailwind CSS**, featuring:
 
-First, run the development server:
+- ✅ Pagination
+- ✅ Searching
+- ✅ Sorting (by Name)
+- ✅ Sidebar Navigation
+- ✅ Authentication (Login & Signup)
+- ✅ Responsive UI
+- ✅ Dark Mode with ShadCN
 
-```bash
-npm run dev
-# or
-yarn dev
-# or
-pnpm dev
-# or
-bun dev
+Live demo: [https://your-deployed-site-url.com](https://your-deployed-site-url.com)
+
+---
+
+## 🔧 Tech Stack
+
+- **Framework**: Next.js (App Router)
+- **UI**: React + Tailwind CSS + ShadCN UI
+- **Auth**: Custom login & signup
+- **Icons**: Lucide React
+
+---
+
+## 🚀 Features
+
+- Fully functional **login/signup authentication**
+- **Protected route** – redirects if user is not logged in
+- **Pagination** – only 5 users per page
+- **Search** – by name, email, role, or status
+- **Sorting** – click name column to toggle ascending/descending
+- **Responsive sidebar** – collapses into drawer on mobile
+- **Dark mode** – using ShadCN theme
+
+---
+
+## 📁 Folder Structure
+
+```
+/app
+  /auth (login & signup pages)
+  /dashboard (main page)
+
+/components
+  Navbar.jsx
+  Sidebar.jsx
+  DataTable.jsx
+
+/context
+  UserContext.jsx
 ```
 
-Open [http://localhost:3000](http://localhost:3000) with your browser to see the result.
+---
 
-You can start editing the page by modifying `app/page.js`. The page auto-updates as you edit the file.
+## 📦 Installation & Running Locally
 
-This project uses [`next/font`](https://nextjs.org/docs/app/building-your-application/optimizing/fonts) to automatically optimize and load [Geist](https://vercel.com/font), a new font family for Vercel.
+```bash
+git clone https://github.com/Anuj579/dashbase.git
+cd dashbase
+npm install
+npm run dev
+```
 
-## Learn More
+---
 
-To learn more about Next.js, take a look at the following resources:
+## 🧑‍💻 Author
 
-- [Next.js Documentation](https://nextjs.org/docs) - learn about Next.js features and API.
-- [Learn Next.js](https://nextjs.org/learn) - an interactive Next.js tutorial.
-
-You can check out [the Next.js GitHub repository](https://github.com/vercel/next.js) - your feedback and contributions are welcome!
-
-## Deploy on Vercel
-
-The easiest way to deploy your Next.js app is to use the [Vercel Platform](https://vercel.com/new?utm_medium=default-template&filter=next.js&utm_source=create-next-app&utm_campaign=create-next-app-readme) from the creators of Next.js.
-
-Check out our [Next.js deployment documentation](https://nextjs.org/docs/app/building-your-application/deploying) for more details.
+**Anuj** — [@anujbuilds](https://instagram.com/anujbuilds)
