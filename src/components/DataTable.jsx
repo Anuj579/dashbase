@@ -80,53 +80,58 @@ export function DataTable() {
                     />
                 </div>
             </div>
-            <Table>
-                <TableHeader>
-                    <TableRow>
-                        <TableHead className="w-[130px] cursor-pointer select-none" onClick={() => setSortOrder((prev) => prev === 'asc' ? 'dec' : 'asc')}>Name {sortOrder === "asc" ? <ArrowUp size={18} className="inline" /> : <ArrowDown size={18} className="inline" />}
-                        </TableHead>
-                        <TableHead>Email</TableHead>
-                        <TableHead>Role</TableHead>
-                        <TableHead className="text-right max-sm:hidden">Status</TableHead>
-                    </TableRow>
-                </TableHeader>
-                <TableBody>
-                    {paginatedData.map((data) => (
-                        <TableRow key={data.id}>
-                            <TableCell className="font-medium">{data.name}</TableCell>
-                            <TableCell>{data.email}</TableCell>
-                            <TableCell>{data.role}</TableCell>
-                            <TableCell className="text-right max-sm:hidden">{data.status}</TableCell>
+            <div className="border rounded-md">
+                <Table>
+                    <TableHeader>
+                        <TableRow>
+                            <TableHead className="w-[130px] cursor-pointer select-none" onClick={() => setSortOrder((prev) => prev === 'asc' ? 'dec' : 'asc')}>Name {sortOrder === "asc" ? <ArrowUp size={18} className="inline" /> : <ArrowDown size={18} className="inline" />}
+                            </TableHead>
+                            <TableHead>Email</TableHead>
+                            <TableHead>Role</TableHead>
+                            <TableHead className="text-right max-sm:hidden">Status</TableHead>
                         </TableRow>
-                    ))}
-                </TableBody>
-            </Table>
+                    </TableHeader>
+                    <TableBody>
+                        {paginatedData.map((data) => (
+                            <TableRow key={data.id}>
+                                <TableCell className="font-medium">{data.name}</TableCell>
+                                <TableCell>{data.email}</TableCell>
+                                <TableCell>{data.role}</TableCell>
+                                <TableCell className="text-right max-sm:hidden">{data.status}</TableCell>
+                            </TableRow>
+                        ))}
+                    </TableBody>
+                </Table>
+                {filteredData.length === 0 && <p className="text-center my-8">No data found</p>}
+            </div>
 
-            <Pagination className='mt-4'>
-                <PaginationContent>
-                    <PaginationItem>
-                        <PaginationPrevious
-                            onClick={() => setCurrentPage((prev) => Math.max(prev - 1, 1))}
-                        />
-                    </PaginationItem>
-                    {[...Array(totalPages)].map((_, index) => (
-                        <PaginationItem key={index}>
-                            <PaginationLink
-                                isActive={currentPage === index + 1}
-                                onClick={() => setCurrentPage(index + 1)}
-                            >
-                                {index + 1}
-                            </PaginationLink>
+            {totalPages !== 0 &&
+                <Pagination className='mt-4'>
+                    <PaginationContent>
+                        <PaginationItem>
+                            <PaginationPrevious
+                                onClick={() => setCurrentPage((prev) => Math.max(prev - 1, 1))}
+                            />
                         </PaginationItem>
-                    ))}
+                        {[...Array(totalPages)].map((_, index) => (
+                            <PaginationItem key={index}>
+                                <PaginationLink
+                                    isActive={currentPage === index + 1}
+                                    onClick={() => setCurrentPage(index + 1)}
+                                >
+                                    {index + 1}
+                                </PaginationLink>
+                            </PaginationItem>
+                        ))}
 
-                    <PaginationItem>
-                        <PaginationNext
-                            onClick={() => setCurrentPage((prev) => Math.min(prev + 1, totalPages))}
-                        />
-                    </PaginationItem>
-                </PaginationContent>
-            </Pagination>
+                        <PaginationItem>
+                            <PaginationNext
+                                onClick={() => setCurrentPage((prev) => Math.min(prev + 1, totalPages))}
+                            />
+                        </PaginationItem>
+                    </PaginationContent>
+                </Pagination>
+            }
 
         </div>
     )
