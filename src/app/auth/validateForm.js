@@ -22,5 +22,5 @@ export const validateForm = (formData, isSignup) => {
     }
 
     return newErrors;
-    
+
 }

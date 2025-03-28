@@ -40,8 +40,8 @@ function LoginPage() {
             if (!data.success) {
                 toast.error(data.error)
             } else {
-                toast.success("Logged In")
                 router.push('/dashboard')
+                toast.success("Logged In")
             }
         } catch (error) {
             console.log("FAILED TO LOGIN:", error);

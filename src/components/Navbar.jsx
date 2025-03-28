@@ -19,8 +19,8 @@ import {
   AlertDialogHeader,
   AlertDialogTitle,
 } from "@/components/ui/alert-dialog"
-import { Avatar, AvatarFallback, AvatarImage } from "@/components/ui/avatar"
-import { AlertTriangle, LayoutDashboard, LogOutIcon, PanelRightClose, Trash2Icon } from 'lucide-react'
+import { Avatar, AvatarFallback } from "@/components/ui/avatar"
+import { AlertTriangle, LogOutIcon, PanelRightClose, Trash2Icon } from 'lucide-react'
 import { Button } from './ui/button'
 import { useRouter } from 'next/navigation'
 import { useUser } from '@/context/UserContext'
